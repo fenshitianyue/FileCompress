@@ -43,7 +43,7 @@ public:
   void GenerateHuffmanCode(Node* root, std::string code){
     if(nullptr == root) return;
     if(nullptr == root->_left && nullptr == root->_right){
-      _hashInfos[static_cast<int>(root->_w._ch)]._code = code; //maybe have bug
+      _hashInfos[static_cast<unsigned char>(root->_w._ch)]._code = code; 
     }
     if(nullptr != root->_left)
       GenerateHuffmanCode(root->_left, code + '0');
@@ -55,7 +55,7 @@ public:
     std::ifstream ifs(file.c_str(), std::ios::in | std::ios::binary); //maybe have bug
     char ch;
     while(ifs.get(ch)){
-      _hashInfos[static_cast<int>(ch)]._count++; //maybe have bug
+      _hashInfos[static_cast<unsigned char>(ch)]._count++;
     }
     CharInfo invaild;
     invaild._count = 0;
@@ -85,7 +85,7 @@ public:
     size_t pos = 0;
     char value = 0;
     while(ifs.get(ch)){
-      std::string& code = _hashInfos[static_cast<int>(ch)]._code; //maybe have bug
+      std::string& code = _hashInfos[static_cast<unsigned char>(ch)]._code;
       for(size_t i = 0; i < code.size(); ++i){
         if('0' == code[i]){
           value &= (~(1 << pos));
@@ -121,7 +121,7 @@ public:
       ConfigInfo tmp;
       ifs.read(reinterpret_cast<char*>(&tmp), sizeof(ConfigInfo));
       if(tmp._count > 0){
-        _hashInfos[static_cast<int>(tmp._ch)]._count = tmp._count;
+        _hashInfos[static_cast<unsigned char>(tmp._ch)]._count = tmp._count;
       }else{
         break;
       }
