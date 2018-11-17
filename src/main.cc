@@ -3,7 +3,7 @@
 
 void TestCompress(){
   FileCompress f;
-  f.Compress("/home/zanda/Desktop/Project/FileCompress/src/input");
+  f.Compress("input");
 }
 void TestUnCompress(){
   FileCompress f;
@@ -13,8 +13,7 @@ void TestUnCompress(){
 
 
 int main() {
-  FileCompress f;
-  f.Compress("/home/zanda/Desktop/Project/FileCompress/src/input");
+  TestCompress();
   //TestUnCompress(); 
   return 0;
 }
