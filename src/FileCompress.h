@@ -12,14 +12,14 @@ struct CharInfo{
   char _ch;
   BigLong _count;
   std::string _code;
-  CharInfo(){}
-  CharInfo(const BigLong count): _count(count){}
+  CharInfo() {}
+  CharInfo(const BigLong count): _count(count) {}
 
   bool operator>(const CharInfo& ch){
     return _count > ch._count;
   }
   CharInfo operator+(const CharInfo& ch){
-    return CharInfo(_count + ch._count);
+    return CharInfo(_count + ch._count); //maybe have bug
   }
   bool operator!=(const CharInfo& ch){
     return _count != ch._count;
@@ -52,7 +52,7 @@ public:
   }
   
   void Compress(const std::string& file){
-    std::ifstream ifs(file.c_str(), std::ios::in | std::ios::binary);
+    std::ifstream ifs(file.c_str(), std::ios::in | std::ios::binary); //maybe have bug
     char ch;
     while(ifs.get(ch)){
       _hashInfos[static_cast<int>(ch)]._count++; //maybe have bug
@@ -65,7 +65,7 @@ public:
     
     std::string target_file = file;
     target_file += ".huffman";
-    std::ofstream ofs(target_file.c_str(), std::ios::out | std::ios::binary);
+    std::ofstream ofs(target_file.c_str(), std::ios::out | std::ios::binary); //maybe have bug
 
     //write UnCompress configeration
     for(size_t i = 0; i < sizeof(_hashInfos) / sizeof(_hashInfos[0]); ++i){
@@ -73,12 +73,12 @@ public:
         ConfigInfo info;
         info._ch = _hashInfos[i]._ch;
         info._count = _hashInfos[i]._count;
-        ofs.write(reinterpret_cast<char*>(&info), sizeof(ConfigInfo));
+        ofs.write(reinterpret_cast<char*>(&info), sizeof(ConfigInfo)); //maybe have bug
       }
     }
     ConfigInfo end;
     end._count = 0;
-    ofs.write(reinterpret_cast<char*>(&end), sizeof(ConfigInfo));
+    ofs.write(reinterpret_cast<char*>(&end), sizeof(ConfigInfo)); //maybe have bug
 
     ifs.clear();
     ifs.seekg(0);
